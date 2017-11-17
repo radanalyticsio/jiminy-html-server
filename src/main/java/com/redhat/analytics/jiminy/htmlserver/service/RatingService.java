@@ -1,10 +1,9 @@
 package com.redhat.analytics.jiminy.htmlserver.service;
-
 import com.redhat.analytics.jiminy.htmlserver.model.RatingsDAO;
 import java.util.List;
 
 public interface RatingService {
-//    interface ValidationRules {
+ //    interface ValidationRules {
 //        int max();
 //
 //        int min();
@@ -40,6 +39,7 @@ public interface RatingService {
     List<RatingsDAO> findAll();
 
     RatingsDAO findById(Integer id);
+ 
 
     RatingsDAO update(RatingsDAO users);
 

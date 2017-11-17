@@ -3,6 +3,7 @@ package com.redhat.analytics.jiminy.htmlserver.config;
 
 import com.redhat.analytics.jiminy.htmlserver.model.Ratings;
 import com.redhat.analytics.jiminy.htmlserver.model.RatingsDAO;
+
 import com.redhat.analytics.jiminy.htmlserver.service.RatingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
