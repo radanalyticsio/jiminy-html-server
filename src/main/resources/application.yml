@@ -1,0 +1,8 @@
+spring.data.mongodb.host: zhassan.yyz.redhat.com 
+server:
+    port: 8181
+logging:
+     path: /logs/jiminy-html-server
+     file: server.log
+     level:
+         root: INFO
