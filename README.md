@@ -14,7 +14,7 @@ The Maven POM has the Spring Boot plugin configured so the app can also be run u
 
 `mvn spring-boot:run`
 
-Once the application is started, point your browser to http://localhost:8181/
+Once the application is started, point your browser to http://localhost:8778/
 
 The UI is served as static content from the resources dir. [Webpack](https://webpack.js.org/) is used to bundle the web assets into one file. If assets need to be rebundled then:
 ```bash
@@ -26,7 +26,7 @@ npm run build
 Application configuration has been externalized to a YAML file that is read and values injected into the app via Spring annotations. Note that Spring has the capability to interpret those configuration properties as environment variables using relaxed binding. See below in [s2i](#s2i).
 
 ## Swagger
-You can retrieve a Swagger UI definition from the running service. For example: http://localhost:8181/swagger-ui.html
+You can retrieve a Swagger UI definition from the running service. For example: http://localhost:8778/swagger-ui.html
 
 ## [s2i](#s2i)
 This application can be deployed in OpenShift environments and built "on-the-fly" using source-to-image (s2i). An appropriate image builder is the `fabric8/s2i-java` image.
