@@ -32,6 +32,13 @@
                 </div>
             </div>
         </nav><span></span>
+
+        <div class="col col-cards-pf container-cards-pf fader">
+          <div class="cards col-xs-10 col-md-8">
+            <div id="notifications"></div>
+          </div>
+        </div>
+
         <div class="col col-cards-pf container-cards-pf fader">
             <div class="cards col-xs-10 col-md-8">
                 <div class="card-pf card-pf-accented">
@@ -60,23 +67,50 @@
     </div>
 </div>
 <script>
+var showNotification = function(msg) {
+  var html = '<div class="alert alert-warning alert-dismissable">' +
+    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+    '<span class="pficon pficon-close"></span>' +
+    '</button><span class="pficon pficon-warning-triangle-o"></span>' + msg + '</div>';
+
+  $('#notifications').append(html);
+};
+
+var clearNotifications = function() {
+  $('#notifications').empty();
+};
+
+var clearTable = function() {
+  $('#table1').empty();
+};
+
 $('form').submit(false);
 var displayReport= function(){
-var userId= $("#userRating").val();
+  clearTable();
+  clearNotifications();
+  var userId= $("#userRating").val();
 
- $.get("/api/predictor/"+userId,
-        function(data, status){
-			var conf={ columns: data.columns,
-		            data: data.dataSet,
-		            dom: "t",
-		            order: [[ 0, 'asc' ]],
-		            pfConfig: {
-		              filterCaseInsensitive: true,
-		              paginationSelector: "#pagination1",
-		              colvisMenuSelector: '.table-view-pf-colvis-menu'
-		            },
-		         };
-		    var table= $("#table1").DataTable(conf);
+  $.ajax("/api/predictor/"+userId)
+    .done(function(data) {
+      if (data == "") {
+        showNotification("Warning: empty ratings response, please try again or check the predictor service");
+      }
+      else {
+        var conf={ columns: data.columns,
+          data: data.dataSet,
+          dom: "t",
+          order: [[ 0, 'asc' ]],
+          pfConfig: {
+            filterCaseInsensitive: true,
+            paginationSelector: "#pagination1",
+            colvisMenuSelector: '.table-view-pf-colvis-menu'
+          },
+        };
+        var table= $("#table1").DataTable(conf);
+      }
+    })
+    .fail(function() {
+      showNotification("Warning: bad response from html-server, please check the server logs");
     });
 };
 </script>
