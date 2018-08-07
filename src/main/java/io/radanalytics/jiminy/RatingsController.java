@@ -86,24 +86,27 @@ public class RatingsController {
 	@RequestMapping(method = RequestMethod.GET, path = "/api/predictor/{userid}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public ReportDAO getPrediction(@PathVariable("userid") String userid) {
-		LOGGER.info("Getting prediction report: {} ", userid);
-		ReportDAO report = null;
-		try {
-			report = PredictorUtils.fetchPredictions(userid,NUM_PREDICTIONS, predictorURL);
-			final List<ProductType> dataset = report.getDataSet();
+        LOGGER.info("Getting prediction report: {} ", userid);
+        ReportDAO report = null;
+        try {
+            report = PredictorUtils.fetchPredictions(userid,NUM_PREDICTIONS, predictorURL);
+            final List<ProductType> dataset = report.getDataSet();
 
-			List<Long> ids = dataset.stream().map(ProductType::getId).collect(Collectors.toList());
+            List<Long> ids = dataset.stream().map(ProductType::getId).collect(Collectors.toList());
 
-            Map<Long, String> descriptions = productService.findAllById(ids).stream().collect(Collectors.toMap(ProductDAO::getId, ProductDAO::getDescriptions));
+            if (ids.size() == 5) {
+                Map<Long, String> descriptions = productService.findAllById(ids).stream().collect(Collectors.toMap(ProductDAO::getId, ProductDAO::getDescriptions));
 
-            for (ProductType pt : dataset) {
-                pt.setDescription(descriptions.get(pt.getId()));
+                for (ProductType pt : dataset) {
+                    pt.setDescription(descriptions.get(pt.getId()));
+                }
+            } else {
+                report = null;
             }
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return report;
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return report;
+    }
 
 }
