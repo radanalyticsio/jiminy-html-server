@@ -25,7 +25,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<jersey.version>1.19.4</jersey.version>
-		<springfox.swagger.version>2.7.0</springfox.swagger.version>
+		<springfox.swagger.version>2.10.0</springfox.swagger.version>
 	</properties>
 	<build>
 		<plugins>
